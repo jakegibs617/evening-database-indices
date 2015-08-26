@@ -3,8 +3,16 @@
 EXPLAIN ANALYSE
 SELECT *
 	FROM ingredients INDEX (ingredients_name_idx)
-	WHERE name LIKE '%Brussels sprouts%'
+	WHERE name = '%Brussels sprouts%'
 	;
+	```
+# 			or in 2 go's
+	```
+CREATE INDEX ON ingredients(name);
+	EXPLAIN ANALYSE
+	SELECT *
+		FROM ingredients
+		WHERE name = 'Brussels sprouts';
 --with index ![alt](https://40.media.tumblr.com/effe6b597491a65c07b2255259121dfa/tumblr_ntpchokqT91uzhpxoo1_1280.png)
 
 
@@ -23,6 +31,15 @@ SELECT count(*)
 	FROM ingredients INDEX (ingredients_name_idx)
 	WHERE name LIKE '%Brussels sprouts%'
 	;
+
+```
+# 			or in 2 go's
+```
+CREATE INDEX ON ingredients(name);
+	EXPLAIN ANALYSE
+	SELECT count(*)
+		FROM ingredients
+		WHERE name = 'Brussels sprouts';
 --with index
 ![alt](https://36.media.tumblr.com/9961338dce987e2fb8d0994c7360c3da/tumblr_ntpcphfrJ71uzhpxoo1_1280.png)
 
@@ -41,6 +58,14 @@ SELECT *
 	FROM ingredients INDEX (ingredients_name_idx)
 	WHERE unit LIKE '%gallon(s)%' AND name LIKE '%Brussels sprouts%'
 	;
+	```
+## 			or in 2 go's
+	```
+CREATE INDEX ON ingredients(name);
+	EXPLAIN ANALYSE
+		SELECT *
+			FROM ingredients
+			WHERE name = 'Brussels sprouts' AND unit = 'gallon(s)';
 	--with index
 	![alt](https://41.media.tumblr.com/d249b751cc2658c52846c29b22e7fdb1/tumblr_ntpcvy2QXe1uzhpxoo1_1280.png)
 
@@ -60,6 +85,14 @@ SELECT *
 	FROM ingredients INDEX (ingredients_name_idx)
 	WHERE unit LIKE '%gallon(s)%' AND name LIKE '%Brussels sprouts%' OR name LIKE '%j%'
 	;
+	```
+## 			or in 2 go's
+	```
+CREATE INDEX ON ingredients(name);
+	EXPLAIN ANALYSE
+		SELECT *
+			FROM ingredients
+			WHERE name LIKE 'Brussels sprouts' AND ingredients.unit = 'gallon(s)' OR name LIKE '%j%';
 	--with index
 	![alt](https://36.media.tumblr.com/23498fe499211dd09ed1b03fc22af375/tumblr_ntpczoM1631uzhpxoo1_1280.png)
 
